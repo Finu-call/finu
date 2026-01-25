@@ -981,87 +981,95 @@ section {
 }
 
 /* Contact */
+/* Aggressive Contact - High Impact */
 .contact-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+    opacity: 0;
+    transform: translateY(-50px);
+    transition: opacity 0.1s ease, transform 0.1s ease;
 }
 
-.contact-wrapper p {
-    font-size: 1.5rem;
-    max-width: 800px;
-    margin-bottom: 50px;
-    color: var(--text-main);
+.contact-wrapper.visible {
+    opacity: 1;
+    transform: translateY(0);
+    animation: simple-snap 0.6s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
 }
 
-.contact-links {
-    display: flex;
-    gap: 40px;
-    flex-wrap: wrap;
-    justify-content: center;
+@keyframes simple-snap {
+    0% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
-.contact-item {
-    padding: 20px 40px;
-    border: 1px solid var(--border-light);
-    border-radius: 50px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 250px;
-    transition: all 0.3s ease;
-    background: rgba(255, 255, 255, 0.02);
+/* Micro-Glitch on Heading */
+.section-title.visible {
+    animation: glitch-snap 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
-.contact-item:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: var(--accent-primary);
-    transform: translateY(-5px);
+@keyframes glitch-snap {
+    0% {
+        transform: translate(0);
+    }
+
+    20% {
+        transform: translate(-2px, 2px);
+    }
+
+    40% {
+        transform: translate(-2px, -2px);
+    }
+
+    60% {
+        transform: translate(2px, 2px);
+    }
+
+    80% {
+        transform: translate(2px, -2px);
+    }
+
+    100% {
+        transform: translate(0);
+    }
 }
 
-.contact-item .label {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 5px;
-    letter-spacing: 0.1em;
-}
-
-.contact-item .value {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: white;
-}
-
-/* Contact Links Layout */
-.contact-links.center-layout {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 40px;
-    margin-top: 40px;
-}
-
-/* Connect With Me - Holographic Orb Effect */
+/* Contact Items - Sharp Interactions */
 .contact-item {
     position: relative;
     overflow: hidden;
     padding: 2px;
-    /* For border space */
     border-radius: 50px;
     background: transparent;
     display: flex;
     flex-direction: column;
     align-items: center;
     min-width: 250px;
-    transition: all 0.3s ease;
+    transition: transform 0.1s cubic-bezier(0, 0.9, 0.1, 1);
+    /* Instant Snap */
     z-index: 10;
-    /* Clean slate for custom border */
     border: none;
 }
 
-/* Inner Card Content */
+.contact-item:hover {
+    transform: scale(1.05) skewX(-5deg);
+    /* Aggressive hover state */
+    box-shadow: 0 0 40px rgba(0, 242, 255, 0.3);
+    /* Stronger glow */
+}
+
+/* Inner Content */
 .contact-item-content {
     background: rgba(10, 10, 10, 0.9);
     width: 100%;
@@ -1074,25 +1082,16 @@ section {
     position: relative;
     z-index: 2;
     backdrop-filter: blur(10px);
+    transition: background 0.1s ease;
 }
 
-/* Rotating Border */
-.contact-item::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: conic-gradient(transparent,
-            transparent,
-            transparent,
-            var(--accent-primary));
-    animation: rotate-border 4s linear infinite;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+.contact-item:hover .contact-item-content {
+    background: rgba(0, 0, 0, 1);
+    box-shadow: inset 0 0 20px rgba(0, 242, 255, 0.2);
 }
 
+/* Rotating Border - Faster/Sharper */
+.contact-item::before,
 .contact-item::after {
     content: '';
     position: absolute;
@@ -1100,25 +1099,12 @@ section {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: conic-gradient(transparent,
-            transparent,
-            transparent,
-            var(--accent-primary));
-    animation: rotate-border 4s linear infinite;
-    animation-delay: -2s;
-    /* Offset for double border feel */
+    background: conic-gradient(transparent, transparent, transparent, var(--accent-primary));
+    animation: rotate-border 2s linear infinite;
+    /* Faster rotation */
     opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-@keyframes rotate-border {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
+    transition: opacity 0.1s ease;
+    /* Fast fade in */
 }
 
 .contact-item:hover::before,
@@ -1126,18 +1112,7 @@ section {
     opacity: 1;
 }
 
-/* Glow Pulse on Hover */
-.contact-item:hover .contact-item-content {
-    box-shadow: inset 0 0 20px rgba(0, 242, 255, 0.1);
-    background: rgba(5, 5, 5, 0.8);
-}
-
-.contact-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
-}
-
-/* Text Styles */
+/* Label & Value - High Contrast Snap */
 .contact-item .label {
     font-size: 0.8rem;
     text-transform: uppercase;
@@ -1146,6 +1121,14 @@ section {
     letter-spacing: 0.1em;
     position: relative;
     z-index: 3;
+    transition: color 0.1s ease, transform 0.1s ease;
+}
+
+.contact-item:hover .label {
+    color: var(--accent-primary);
+    transform: translateX(5px);
+    /* Micro shift */
+    text-shadow: 0 0 10px var(--accent-primary);
 }
 
 .contact-item .value {
@@ -1154,26 +1137,14 @@ section {
     color: white;
     position: relative;
     z-index: 3;
-    transition: color 0.3s ease;
+    transition: color 0.1s ease, transform 0.1s ease;
 }
 
 .contact-item:hover .value {
-    color: var(--accent-primary);
-    text-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
-}
-
-.contact-item .label {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 5px;
-    letter-spacing: 0.1em;
-    transition: color 0.3s ease;
-}
-
-.contact-item:hover .label {
-    color: var(--accent-primary);
-    text-shadow: 0 0 5px var(--accent-primary);
+    color: white;
+    transform: translateX(-5px);
+    /* Opposing micro shift for tension */
+    text-shadow: 2px 2px 0px var(--accent-primary);
 }
 
 /* Footer */
