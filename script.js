@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
-    document.querySelectorAll('.fade-in').forEach(el => {
+    document.querySelectorAll('.fade-in, .blur-in').forEach(el => {
         observer.observe(el);
     });
 
@@ -208,6 +208,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Start typing
         type();
+    }
+
+    // --- Magnetic Button Effect ---
+    const magnetBtn = document.querySelector('.btn');
+    if (magnetBtn) {
+        magnetBtn.addEventListener('mousemove', (e) => {
+            const rect = magnetBtn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+
+            // Magnetic pull strength
+            const strength = 0.4; // 1 = follows cursor exactly
+
+            // Removing transition for instant follow
+            magnetBtn.style.transition = 'transform 0.1s ease-out';
+            magnetBtn.style.transform = `translate(${x * strength}px, ${y * strength}px) scale(1.05)`;
+        });
+
+        magnetBtn.addEventListener('mouseleave', () => {
+            // Elastic snapback
+            magnetBtn.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)'; // smooth spring
+            magnetBtn.style.transform = 'translate(0px, 0px) scale(1)';
+        });
     }
 
     // --- Contact Form Logic Removed ---
