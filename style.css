@@ -82,6 +82,7 @@ body::before {
     padding: 5px;
     background: linear-gradient(45deg, var(--accent-primary), var(--bg-panel), var(--accent-secondary));
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    animation: float 4s ease-in-out infinite;
 }
 
 .profile-img {
@@ -624,6 +625,7 @@ section {
 .about-text {
     font-size: 1.2rem;
     color: var(--text-muted);
+    font-weight: 700;
 }
 
 /* ... existing code ... */
