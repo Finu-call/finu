@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- 3D Tilt Effect ---
-    const tiltCards = document.querySelectorAll('.project-card, .skill-card, .stat-card');
+    const tiltCards = document.querySelectorAll('.project-card, .skill-card, .stat-card, .contact-item');
 
     tiltCards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
