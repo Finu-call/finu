@@ -804,20 +804,42 @@ section {
     color: white;
 }
 
-/* Skills */
+/* Skills - Refined & Polished */
 .skills-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    /* Slightly wider minimum */
+    gap: 40px;
+    /* Increased breathing room */
 }
 
 .skill-card {
-    background: linear-gradient(145deg, var(--bg-panel), #080808);
-    padding: 40px 30px;
-    border: 1px solid var(--border-light);
+    background: rgba(10, 10, 10, 0.6);
+    /* Darker, glassier background */
+    padding: 50px 40px;
+    /* More padding for elegance */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    /* Softer corners */
     position: relative;
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    backdrop-filter: blur(10px);
+}
+
+/* Subtle Glow Border on Hover */
+.skill-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    box-shadow: inset 0 0 20px rgba(0, 242, 255, 0.0);
+    transition: box-shadow 0.4s ease;
+    pointer-events: none;
+    z-index: 2;
 }
 
 .skill-card::before {
@@ -825,76 +847,74 @@ section {
     position: absolute;
     top: 0;
     left: 0;
-    width: 2px;
+    width: 3px;
+    /* Slightly thicker */
     height: 100%;
     background: var(--accent-primary);
-    opacity: 0.5;
-    transition: opacity 0.3s ease;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 3;
 }
 
 .skill-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--border-light);
-    /* Maintain border but adding glow */
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    transform: translateY(-10px);
+    border-color: rgba(0, 242, 255, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    background: rgba(15, 20, 25, 0.8);
+}
+
+.skill-card:hover::after {
+    box-shadow: inset 0 0 30px rgba(0, 242, 255, 0.05);
+    /* Very subtle internal glow */
 }
 
 .skill-card:hover::before {
     opacity: 1;
-    box-shadow: 0 0 10px var(--accent-primary);
+    box-shadow: 0 0 15px var(--accent-primary);
 }
 
-/* Skill Animations */
-@keyframes float {
-    0% {
-        transform: translateY(0px);
-    }
-
-    50% {
-        transform: translateY(-10px);
-    }
-
-    100% {
-        transform: translateY(0px);
-    }
-}
-
+/* Skill Icons */
 .skill-card .icon {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
+    font-size: 3rem;
+    /* Larger, more impactful */
+    margin-bottom: 25px;
     color: var(--accent-primary);
     display: inline-block;
-    /* For potential animation */
-    animation: float 3s ease-in-out infinite;
-    text-shadow: 0 0 20px rgba(0, 242, 255, 0.6);
-    /* Glow effect */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), text-shadow 0.4s ease;
+    /* Removed default float animation for cleaner look, added hover interaction instead */
 }
 
-/* Staggered Animation Delays */
-.skill-card:nth-child(1) .icon {
-    animation-delay: 0s;
-}
-
-.skill-card:nth-child(2) .icon {
-    animation-delay: 0.2s;
-}
-
-.skill-card:nth-child(3) .icon {
-    animation-delay: 0.4s;
-}
-
-.skill-card:nth-child(4) .icon {
-    animation-delay: 0.6s;
+.skill-card:hover .icon {
+    transform: scale(1.1);
+    text-shadow: 0 0 25px rgba(0, 242, 255, 0.8);
 }
 
 .skill-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+    font-size: 1.2rem;
+    /* Refined size */
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #fff;
+    letter-spacing: 0.05em;
+    transition: color 0.3s ease;
+}
+
+.skill-card:hover h3 {
+    color: var(--accent-primary);
 }
 
 .skill-card p {
     color: var(--text-muted);
     font-size: 0.95rem;
+    line-height: 1.6;
+    opacity: 0.7;
+    /* Subtler for hierarchy */
+    transition: opacity 0.3s ease;
+}
+
+.skill-card:hover p {
+    opacity: 1;
+    /* Highlight on interaction */
 }
 
 /* Portfolio Work */
