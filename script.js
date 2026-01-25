@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
-    document.querySelectorAll('.fade-in, .blur-in, .contact-wrapper, .section-title').forEach(el => {
+    document.querySelectorAll('.fade-in, .blur-in').forEach(el => {
         observer.observe(el);
     });
 
