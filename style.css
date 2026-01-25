@@ -403,17 +403,107 @@ h6 {
     z-index: 2;
 }
 
-.hero-content h1 {
-    font-size: 7vw;
+.hero-content .hero-title {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
+    /* Space between words */
+    font-size: 8vw;
+    /* Large and bold */
     font-weight: 900;
     margin-bottom: 20px;
-    background: linear-gradient(to bottom, #ffffff 0%, #888888 100%);
+    perspective: 1000px;
+    cursor: default;
+}
+
+@media (min-width: 1200px) {
+    .hero-content .hero-title {
+        gap: 1.5rem;
+    }
+}
+
+.word {
+    display: flex;
+    gap: 0.1em;
+    /* Tight letter spacing within words */
+}
+
+.char {
+    display: inline-block;
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.1);
+    background: linear-gradient(135deg,
+            #ffffff 0%,
+            #a0a0a0 40%,
+            #ffffff 50%,
+            #a0a0a0 60%,
+            #ffffff 100%);
+    background-size: 200% auto;
     -webkit-background-clip: text;
     background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-    letter-spacing: 0.05em;
-    opacity: 0.9;
+    text-shadow:
+        0 0 10px rgba(0, 242, 255, 0.1),
+        0 10px 20px rgba(0, 0, 0, 0.5);
+
+    opacity: 0;
+    transform: translateZ(-50px) scale(0.8) rotateX(10deg);
+    filter: blur(10px);
+
+    animation: cinematic-reveal 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: calc(0.1s * var(--i) + 0.3s);
+
+    transition: all 0.4s ease;
+}
+
+/* Shimmer Effect Animation */
+@keyframes glimmer {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 200% 50%;
+    }
+}
+
+/* Reveal Animation */
+@keyframes cinematic-reveal {
+    0% {
+        opacity: 0;
+        transform: translateZ(-50px) scale(0.8) rotateX(20deg);
+        filter: blur(15px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateZ(0) scale(1) rotateX(0deg);
+        filter: blur(0);
+        text-shadow:
+            0 0 20px rgba(0, 242, 255, 0.2),
+            0 0 40px rgba(0, 242, 255, 0.1);
+    }
+}
+
+/* Hover Interaction */
+.hero-title:hover .char {
+    text-shadow:
+        0 0 20px rgba(0, 242, 255, 0.6),
+        0 0 40px rgba(0, 242, 255, 0.3),
+        0 0 80px rgba(0, 242, 255, 0.1);
+    -webkit-text-stroke: 1px rgba(0, 242, 255, 0.5);
+    transform: scale(1.02) translateY(-2px);
+    transition-delay: 0s !important;
+    /* Instant reaction on hover */
+}
+
+/* Add shimmer on load completion */
+.char {
+    /* Adding a secondary animation for the shimmer loop after reveal */
+    animation:
+        cinematic-reveal 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards,
+        glimmer 6s linear infinite;
+    animation-delay: calc(0.1s * var(--i) + 0.3s), calc(0.1s * var(--i) + 1.5s);
 }
 
 .subtitle {
