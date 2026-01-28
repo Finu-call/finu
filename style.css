@@ -73,19 +73,73 @@ body::before {
 /* ... existing styles ... */
 
 /* Profile Image Styling */
+/* Hanging Photo Effect */
 .profile-img-container {
     position: relative;
     width: 250px;
     height: 250px;
-    margin: 0 auto 30px;
+    margin: 60px auto 30px;
+    /* Increased top margin for the wire */
     border-radius: 50%;
     padding: 5px;
     background: linear-gradient(45deg, var(--accent-primary), var(--bg-panel), var(--accent-secondary));
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+
+    /* Realistic Shadow on 'Wall' */
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.8),
+        /* Deep shadow */
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+    /* Subtle rim */
+
+    /* Hanging Physics */
+    transform-origin: 50% -100px;
+    /* Pivot from the nail (top of wire) */
+    animation: sway 6s ease-in-out infinite alternate;
 }
 
-.profile-img-container:hover {
-    animation: float 4s ease-in-out infinite;
+/* The Hanging Wire */
+.profile-img-container::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    /* Length of the wire */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100px;
+    background: linear-gradient(to bottom,
+            rgba(150, 150, 150, 0.8) 0%,
+            rgba(255, 255, 255, 0.5) 50%,
+            rgba(150, 150, 150, 0.8) 100%);
+    /* Metallic wire look */
+    z-index: -1;
+}
+
+/* The Nail / Pin */
+.profile-img-container::after {
+    content: '';
+    position: absolute;
+    top: -100px;
+    /* At the top of the wire */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #fff, #555);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+/* Subtle Sway Animation */
+@keyframes sway {
+    0% {
+        transform: rotate(-1.5deg);
+    }
+
+    100% {
+        transform: rotate(1.5deg);
+    }
 }
 
 .profile-img {
