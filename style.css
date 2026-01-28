@@ -97,6 +97,27 @@ body::before {
     animation: sway 6s ease-in-out infinite alternate;
 }
 
+/* Hero Section Modifier */
+.hero-profile {
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 30px;
+    /* Reset margins for layout context */
+    z-index: 10;
+    transform-origin: 50% -30vh;
+    /* Physics correction for long wire */
+}
+
+.hero-profile::before {
+    top: -30vh;
+    /* Long wire from top of screen */
+    height: 30vh;
+}
+
+.hero-profile::after {
+    top: -30vh;
+}
+
 /* The Hanging Wire */
 .profile-img-container::before {
     content: '';
