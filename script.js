@@ -233,5 +233,66 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Writing Animation for About Text ---
+    const aboutTextContainer = document.querySelector('.about-text');
+
+    // Function to wrap characters in spans
+    function prepareTypingAnimation(element) {
+        if (!element) return;
+
+        // Helper to process nodes recursively
+        function processNode(node) {
+            if (node.nodeType === 3) { // Text node
+                const text = node.nodeValue;
+                const fragment = document.createDocumentFragment();
+
+                for (let char of text) {
+                    const span = document.createElement('span');
+                    span.textContent = char;
+                    span.className = 'char-hidden'; // Start hidden
+                    fragment.appendChild(span);
+                }
+                node.parentNode.replaceChild(fragment, node);
+            } else if (node.nodeType === 1) { // Element node
+                Array.from(node.childNodes).forEach(processNode);
+            }
+        }
+
+        // Process paragraphs within the container
+        const paragraphs = element.querySelectorAll('p');
+        paragraphs.forEach(p => {
+            Array.from(p.childNodes).forEach(processNode);
+        });
+    }
+
+    // Trigger animation
+    function triggerWritingAnimation(entries, observer) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const chars = entry.target.querySelectorAll('.char-hidden');
+                let delay = 0;
+
+                chars.forEach((char, index) => {
+                    setTimeout(() => {
+                        char.style.opacity = '1';
+                    }, delay);
+                    delay += 15; // Speed of typing
+                });
+
+                observer.unobserve(entry.target);
+            }
+        });
+    }
+
+    if (aboutTextContainer) {
+        prepareTypingAnimation(aboutTextContainer);
+
+        const writingObserver = new IntersectionObserver(triggerWritingAnimation, {
+            threshold: 0.2
+        });
+
+        writingObserver.observe(aboutTextContainer);
+    }
+
     // --- Contact Form Logic Removed ---
 });
